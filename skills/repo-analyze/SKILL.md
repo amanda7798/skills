@@ -27,9 +27,10 @@ agent: Explore
 2. `.gitmodules` —— 获取所有子模块路径和 URL，这是后续分析的地图
 3. 顶层目录列表 —— 感知整体布局
 4. 顶层构建/配置文件（`CMakeLists.txt` / `Makefile` / `package.json` / `Cargo.toml` / `setup.py` / `pyproject.toml` 等）——了解项目类型、构建入口、顶层依赖
-5. `docs/` 或 `doc/` 目录下的架构文档（若存在）
+5. 构建/安装脚本（`build.sh` / `install.sh` / `Makefile` / `setup.py install` / `cmake --install` 等）——了解实际构建和安装方式
+6. `docs/` 或 `doc/` 目录下的架构文档（若存在）
 
-**目标**：先弄清楚整个仓库是什么（一个库？一个系统？一个工具链？），子模块大致分几类。
+**目标**：先弄清楚整个仓库是什么（一个库？一个系统？一个工具链？），子模块大致分几类，以及如何构建和安装。
 
 ---
 
@@ -76,6 +77,7 @@ agent: Explore
 ## 目录
 
 - [项目概览](#项目概览)
+- [构建与安装](#构建与安装)
 - [架构分层](#架构分层)
 - [模块依赖图](#模块依赖图)
 - [各模块详解](#各模块详解)
@@ -97,6 +99,49 @@ agent: Explore
 | **代码仓库** | 主仓库 URL |
 
 项目的详细背景和用途描述……
+
+---
+
+## 构建与安装
+
+### 构建方式
+
+> 描述如何从源码编译该项目，包括依赖前提、构建命令、常用参数
+
+**前提条件**：
+- 依赖工具：CMake >= x.x / Python >= x.x / ...
+- 依赖库：libdrm / libvulkan / ...
+
+**构建命令**：
+
+```bash
+# 典型构建步骤
+mkdir build && cd build
+cmake .. -DOPTION_A=ON -DOPTION_B=OFF
+make -j$(nproc)
+```
+
+**常用构建参数**：
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-DOPTION_A` | OFF | 功能描述 |
+
+### 安装方式
+
+> 描述构建产物的安装/部署方式
+
+```bash
+# 安装命令
+make install
+# 或
+./install.sh
+```
+
+**安装产物**：
+- 库文件：`/usr/lib/libxxx.so`
+- 头文件：`/usr/include/xxx/`
+- 可执行文件：`/usr/bin/xxx`
 
 ---
 
